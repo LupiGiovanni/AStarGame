@@ -8,6 +8,7 @@
 
 class GlobalMap {
 public:
+    GlobalMap(int width, int height);
     GlobalMap(int width, int height, const int* values);
     ~GlobalMap();
     int getValue (int x, int y) const;
@@ -15,7 +16,7 @@ public:
 private:
     int width;
     int height;
-    int* values;
+    int* values; //Map values can range from 1 (passable terrain) to 9 (unpassable terrain)
 };
 
 

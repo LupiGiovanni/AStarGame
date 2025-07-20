@@ -2,7 +2,25 @@
 // Created by gionimbus on 7/20/25.
 //
 
+#include <cstdlib>
+#include <ctime>
 #include "GlobalMap.h"
+
+GlobalMap::GlobalMap(int width, int height) {
+    this->width = width;
+    this->height = height;
+
+    //Sets random values for the map
+    std::srand(std::time(nullptr));
+    values = new int[ width * height ];
+    for (int i = 0; i < width * height; i++) {
+        int random = rand()%2;
+        if (random == 0)
+            values[i] = 1;
+        else
+            values[i] = 9;
+    }
+}
 
 GlobalMap::GlobalMap(int width, int height, const int* values) {
     this->width = width;
