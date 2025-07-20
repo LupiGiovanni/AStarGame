@@ -3,4 +3,6 @@ project(AStarGame)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(AStarGame main.cpp)
+add_executable(AStarGame main.cpp
+        GlobalMap.cpp
+        GlobalMap.h)
