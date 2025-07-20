@@ -7,4 +7,7 @@ add_executable(AStarGame main.cpp
         GlobalMap.cpp
         GlobalMap.h
         SearchState.cpp
-        SearchState.h)
+        SearchState.h
+        Observer.h
+        Subject.h
+        Display.h)
