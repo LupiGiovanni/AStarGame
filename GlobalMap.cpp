@@ -6,6 +6,9 @@
 #include <ctime>
 #include "GlobalMap.h"
 
+constexpr int reachable = 1;
+constexpr int unreachable = 9;
+
 GlobalMap::GlobalMap(int width, int height) {
     this->width = width;
     this->height = height;
@@ -16,9 +19,9 @@ GlobalMap::GlobalMap(int width, int height) {
     for (int i = 0; i < width * height; i++) {
         int random = rand()%2;
         if (random == 0)
-            values[i] = 1;
+            values[i] = reachable;
         else
-            values[i] = 9;
+            values[i] = unreachable;
     }
 }
 

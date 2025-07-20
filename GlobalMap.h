@@ -16,7 +16,7 @@ public:
 private:
     int width;
     int height;
-    int* values; //Map values can range from 1 (passable terrain) to 9 (unpassable terrain)
+    int* values; //Map values can be 1 (reachable terrain) or 9 (unreachable terrain)
 };
 
 
