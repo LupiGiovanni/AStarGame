@@ -10,9 +10,8 @@
 
 class SearchState {
 public:
-    SearchState(int px, int py): x(px), y(py) {}
-    void printStateInfo();
-    int getMapValue (const GlobalMap& map, int x, int y);
+    SearchState(int x, int y, const GlobalMap& map): x(x), y(y), map(map) {}
+    void printStateInfo() const;
 
     //stlastar library requires to implement the following methods
     float GoalDistanceEstimate (SearchState& goal);
@@ -25,8 +24,8 @@ public:
 private:
     int x;
     int y;
+    const GlobalMap& map;
 };
-
 
 
 #endif //SEARCHSTATE_H
