@@ -11,6 +11,7 @@ bool GameCharacter::move (int dx, int dy) {
     if (map.getValue(x + dx, y + dy) == reachable) {
         x += dx;
         y += dy;
+        notify();
         return true;
     }
     return false;
@@ -42,6 +43,7 @@ std::vector<SearchState> GameCharacter::reachGoal(SearchState &goal) {
         //Updates character position
         x = goal.getX();
         y = goal.getY();
+        notify();
     }
     else if (searchProgress == AStarSearch<SearchState>:: SEARCH_STATE_FAILED)
         std::cout << "Search failed" << std::endl;
@@ -49,7 +51,6 @@ std::vector<SearchState> GameCharacter::reachGoal(SearchState &goal) {
     search.EnsureMemoryFreed();
     return path;
 }
-
 
 void GameCharacter::notify() {
     for(auto& observer : observers)
