@@ -12,6 +12,8 @@ class SearchState {
 public:
     SearchState(int x, int y, const GlobalMap& map): x(x), y(y), map(map) {}
     void printStateInfo() const;
+    int getX () const { return x; }
+    int getY () const { return y; }
 
     //stlastar library requires to implement the following methods
     float GoalDistanceEstimate (SearchState& goal);
