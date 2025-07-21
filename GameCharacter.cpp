@@ -8,7 +8,7 @@
 constexpr int reachable = 1;
 
 bool GameCharacter::move (int dx, int dy) {
-    if (map.getValue(x + dx, y + dy) == reachable) {
+    if (map->getValue(x + dx, y + dy) == reachable) {
         x += dx;
         y += dy;
         notify();

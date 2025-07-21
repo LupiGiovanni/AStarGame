@@ -25,25 +25,25 @@ bool SearchState::GetSuccessors (AStarSearch<SearchState>* astarsearch, SearchSt
 
     SearchState newState(0, 0, map);
 
-    if ( (map.getValue(x-1, y) < 9) && !((predecessor->x == x-1) && (predecessor->y == y)) ) {
+    if ( (map->getValue(x-1, y) < 9) && !((predecessor->x == x-1) && (predecessor->y == y)) ) {
         newState.x = x-1;
         newState.y = y;
         astarsearch->AddSuccessor(newState);
     }
 
-    if ( (map.getValue(x+1, y) < 9) && !((predecessor->x == x+1) && (predecessor->y == y)) ) {
+    if ( (map->getValue(x+1, y) < 9) && !((predecessor->x == x+1) && (predecessor->y == y)) ) {
         newState.x = x+1;
         newState.y = y;
         astarsearch->AddSuccessor(newState);
     }
 
-    if ( (map.getValue(x, y-1) < 9) && !((predecessor->x == x) && (predecessor->y == y-1)) ) {
+    if ( (map->getValue(x, y-1) < 9) && !((predecessor->x == x) && (predecessor->y == y-1)) ) {
         newState.x = x;
         newState.y = y-1;
         astarsearch->AddSuccessor(newState);
     }
 
-    if ( (map.getValue(x, y+1) < 9) && !((predecessor->x == x) && (predecessor->y == y+1)) ) {
+    if ( (map->getValue(x, y+1) < 9) && !((predecessor->x == x) && (predecessor->y == y+1)) ) {
         newState.x = x;
         newState.y = y+1;
         astarsearch->AddSuccessor(newState);
@@ -53,7 +53,7 @@ bool SearchState::GetSuccessors (AStarSearch<SearchState>* astarsearch, SearchSt
 }
 
 float SearchState::GetCost (SearchState& successor) {
-    return map.getValue(x, y);
+    return map->getValue(x, y);
 }
 
 bool SearchState::IsSameState (SearchState& rhs) {

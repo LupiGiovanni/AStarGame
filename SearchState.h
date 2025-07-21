@@ -4,13 +4,15 @@
 
 #ifndef SEARCHSTATE_H
 #define SEARCHSTATE_H
+
+#include <memory>
 #include "stlastar.h"
 #include "GlobalMap.h"
 
 
 class SearchState {
 public:
-    SearchState(int x, int y, const GlobalMap& map): x(x), y(y), map(map) {}
+    SearchState(int x, int y, std::shared_ptr<const GlobalMap> map): x(x), y(y), map(map) {}
     void printStateInfo() const;
     int getX () const { return x; }
     int getY () const { return y; }
@@ -26,7 +28,7 @@ public:
 private:
     int x;
     int y;
-    const GlobalMap& map;
+    std::shared_ptr<const GlobalMap> map;
 };
 
 

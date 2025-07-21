@@ -6,6 +6,7 @@
 #define GAMECHARACTER_H
 
 #include <list>
+#include <memory>
 #include "SearchState.h"
 #include "Subject.h"
 #include "GlobalMap.h"
@@ -13,7 +14,7 @@
 
 class GameCharacter: public Subject {
 public:
-    explicit GameCharacter(const GlobalMap& map):x(0), y(0), map(map) {}
+    GameCharacter(int x, int y, std::shared_ptr<const GlobalMap> map): x(x), y(y), map(map) {}
     bool move (int dx, int dy);
     std::vector<SearchState> reachGoal (SearchState& goal);
 
@@ -25,7 +26,7 @@ private:
     int x;
     int y;
     std::list<Observer*> observers;
-    const GlobalMap& map;
+    std::shared_ptr<const GlobalMap> map;
 };
 
 
