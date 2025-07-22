@@ -68,10 +68,12 @@ int main() {
     GlobalMap& map = GlobalMap::getInstance();
     map.initialize(20, 20, map_values);
     GameCharacter character (0, 0);
-    SearchState goal (0, 7);
+    SearchState goal (19, 19);
 
     std::vector<SearchState> path;
     path = character.reachGoal(goal);
     displayPath(map, map_width, map_height, path);
+    for (auto state : path)
+        state.printStateInfo();
     return 0;
 }

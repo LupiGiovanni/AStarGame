@@ -124,9 +124,6 @@ public: // methods
 	AStarSearch() :
 		m_State( SEARCH_STATE_NOT_INITIALISED ),
 		m_CurrentSolutionNode( NULL ),
-#if USE_FSA_MEMORY
-		m_FixedSizeAllocator( 1000 ),
-#endif
 		m_AllocateNodeCount(0),
 		m_CancelRequest( false )
 	{
@@ -135,9 +132,6 @@ public: // methods
 	AStarSearch( int MaxNodes ) :
 		m_State( SEARCH_STATE_NOT_INITIALISED ),
 		m_CurrentSolutionNode( NULL ),
-#if USE_FSA_MEMORY
-		m_FixedSizeAllocator( MaxNodes ),
-#endif
 		m_AllocateNodeCount(0),
 		m_CancelRequest( false )
 	{
@@ -745,16 +739,6 @@ private: // methods
 		m_AllocateNodeCount ++;
 		Node *p = new Node;
 		return p;
-#else
-		Node *address = m_FixedSizeAllocator.alloc();
-
-		if( !address )
-		{
-			return NULL;
-		}
-		m_AllocateNodeCount ++;
-		Node *p = new (address) Node;
-		return p;
 #endif
 	}
 
@@ -765,9 +749,6 @@ private: // methods
 
 #if !USE_FSA_MEMORY
 		delete node;
-#else
-		node->~Node();
-		m_FixedSizeAllocator.free( node );
 #endif
 	}
 
@@ -805,11 +786,6 @@ private: // data
 	Node *m_Goal;
 
 	Node *m_CurrentSolutionNode;
-
-#if USE_FSA_MEMORY
-	// Memory
- 	FixedSizeAllocator<Node> m_FixedSizeAllocator;
-#endif
 
 	//Debug : need to keep these two iterators around
 	// for the user Dbg functions

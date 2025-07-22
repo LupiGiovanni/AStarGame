@@ -23,5 +23,4 @@ private:
     GlobalMap(): width(0), height(0), values(nullptr), initialized(false) {}
 };
 
-
 #endif //GLOBALMAP_H

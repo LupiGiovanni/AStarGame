@@ -23,8 +23,13 @@ bool SearchState::IsGoal(SearchState& goal) {
 }
 
 bool SearchState::GetSuccessors (AStarSearch<SearchState>* astarsearch, SearchState* predecessor) {
-    if (predecessor == nullptr || astarsearch == nullptr)
-        return false;
+    int predecessor_x = -1;
+    int predecessor_y = -1;
+
+    if (predecessor) {
+        predecessor_x = predecessor->x;
+        predecessor_y = predecessor->y;
+    }
 
     SearchState newState;
     GlobalMap& map = GlobalMap::getInstance();
@@ -34,27 +39,23 @@ bool SearchState::GetSuccessors (AStarSearch<SearchState>* astarsearch, SearchSt
         return false;
     }
 
-    if ( (map.getValue(x-1, y) < 9) && !((predecessor->x == x-1) && (predecessor->y == y)) ) {
-        newState.x = x-1;
-        newState.y = y;
+    if ( (map.getValue(x-1, y) < 9) && !((predecessor_x == x-1) && (predecessor_y == y)) ) {
+        newState = SearchState(x-1, y);
         astarsearch->AddSuccessor(newState);
     }
 
-    if ( (map.getValue(x+1, y) < 9) && !((predecessor->x == x+1) && (predecessor->y == y)) ) {
-        newState.x = x+1;
-        newState.y = y;
+    if ( (map.getValue(x+1, y) < 9) && !((predecessor_x == x+1) && (predecessor_y == y)) ) {
+        newState = SearchState(x+1, y);
         astarsearch->AddSuccessor(newState);
     }
 
-    if ( (map.getValue(x, y-1) < 9) && !((predecessor->x == x) && (predecessor->y == y-1)) ) {
-        newState.x = x;
-        newState.y = y-1;
+    if ( (map.getValue(x, y-1) < 9) && !((predecessor_x == x) && (predecessor_y == y-1)) ) {
+        newState = SearchState(x, y-1);
         astarsearch->AddSuccessor(newState);
     }
 
-    if ( (map.getValue(x, y+1) < 9) && !((predecessor->x == x) && (predecessor->y == y+1)) ) {
-        newState.x = x;
-        newState.y = y+1;
+    if ( (map.getValue(x, y+1) < 9) && !((predecessor_x == x) && (predecessor_y == y+1)) ) {
+        newState = SearchState(x, y+1);
         astarsearch->AddSuccessor(newState);
     }
 
@@ -63,10 +64,6 @@ bool SearchState::GetSuccessors (AStarSearch<SearchState>* astarsearch, SearchSt
 
 float SearchState::GetCost (SearchState& successor) {
     GlobalMap& map = GlobalMap::getInstance();
-    if (!map.isInitialized()) {
-        std::cout << "Map is not initialized" << std::endl;
-        return error;
-    }
     return map.getValue(x, y);
 }
 
