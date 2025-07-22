@@ -8,15 +8,19 @@
 
 class GlobalMap {
 public:
-    GlobalMap(int width, int height);
-    GlobalMap(int width, int height, const int* values);
     ~GlobalMap();
     int getValue (int x, int y) const;
+    static GlobalMap& getInstance();
+    void initialize (int map_width, int map_height, const int* map_values);
+    bool isInitialized() const;
 
 private:
     int width;
     int height;
     int* values; //Map values can be 1 (reachable terrain) or 9 (unreachable terrain)
+    bool initialized;
+
+    GlobalMap(): width(0), height(0), values(nullptr), initialized(false) {}
 };
 
 

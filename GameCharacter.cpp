@@ -3,12 +3,19 @@
 //
 
 #include <vector>
+#include "GlobalMap.h"
 #include "GameCharacter.h"
 
 constexpr int reachable = 1;
 
 bool GameCharacter::move (int dx, int dy) {
-    if (map->getValue(x + dx, y + dy) == reachable) {
+    GlobalMap& map = GlobalMap::getInstance();
+    if (!map.isInitialized()) {
+        std::cout << "Map is not initialized" << std::endl;
+        return false;
+    }
+
+    if (map.getValue(x + dx, y + dy) == reachable) {
         x += dx;
         y += dy;
         notify();
@@ -18,7 +25,7 @@ bool GameCharacter::move (int dx, int dy) {
 }
 
 std::vector<SearchState> GameCharacter::reachGoal(SearchState &goal) {
-    SearchState start (x, y, map);
+    SearchState start (x, y);
     AStarSearch<SearchState> search;
     search.SetStartAndGoalStates(start, goal);
     unsigned int searchProgress;

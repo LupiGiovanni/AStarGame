@@ -4,7 +4,7 @@
 #include "GameCharacter.h"
 #include "SearchState.h"
 
-bool displayPath (std::shared_ptr<const GlobalMap> map, int width, int height, const std::vector<SearchState>& path) {
+bool displayPath (const GlobalMap& map, int width, int height, const std::vector<SearchState>& path) {
     if (path.empty())
         return false;
 
@@ -27,9 +27,9 @@ bool displayPath (std::shared_ptr<const GlobalMap> map, int width, int height, c
             }
 
             if (!isPath) {
-                if (map->getValue(x ,y) == 9)
+                if (map.getValue(x ,y) == 9)
                     std::cout << "#  ";
-                else if (map->getValue(x, y) < 9)
+                else if (map.getValue(x, y) < 9)
                     std::cout << ".  ";
             }
 
@@ -65,9 +65,10 @@ int main() {
         1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
     };
 
-    auto map = std::make_shared<GlobalMap> (map_width, map_height, map_values);
-    GameCharacter character (0, 0, map);
-    SearchState goal (19, 7, map);
+    GlobalMap& map = GlobalMap::getInstance();
+    map.initialize(20, 20, map_values);
+    GameCharacter character (0, 0);
+    SearchState goal (0, 7);
 
     std::vector<SearchState> path;
     path = character.reachGoal(goal);

@@ -12,7 +12,8 @@
 
 class SearchState {
 public:
-    SearchState(int x, int y, std::shared_ptr<const GlobalMap> map): x(x), y(y), map(map) {}
+    SearchState(): x(0), y(0) {}
+    SearchState(int x, int y): x(x), y(y) {}
     void printStateInfo() const;
     int getX () const { return x; }
     int getY () const { return y; }
@@ -28,7 +29,6 @@ public:
 private:
     int x;
     int y;
-    std::shared_ptr<const GlobalMap> map;
 };
 
 

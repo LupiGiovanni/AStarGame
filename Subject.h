@@ -9,7 +9,7 @@
 
 class Subject {
 public:
-    virtual ~Subject() {}
+    virtual ~Subject() = default;
 
     virtual void notify() = 0;
 

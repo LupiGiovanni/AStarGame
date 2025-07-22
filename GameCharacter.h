@@ -14,7 +14,7 @@
 
 class GameCharacter: public Subject {
 public:
-    GameCharacter(int x, int y, std::shared_ptr<const GlobalMap> map): x(x), y(y), map(map) {}
+    GameCharacter(int x, int y): x(x), y(y) {}
     bool move (int dx, int dy);
     std::vector<SearchState> reachGoal (SearchState& goal);
 
@@ -26,7 +26,6 @@ private:
     int x;
     int y;
     std::list<Observer*> observers;
-    std::shared_ptr<const GlobalMap> map;
 };
 
 

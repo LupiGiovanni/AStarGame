@@ -7,7 +7,7 @@
 
 class Display {
 public:
-    virtual ~Display() {}
+    virtual ~Display() = default;
 
     virtual void draw() = 0;
 };
