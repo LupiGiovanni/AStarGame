@@ -12,4 +12,6 @@ add_executable(AStarGame main.cpp
         Subject.h
         Display.h
         GameCharacter.cpp
-        GameCharacter.h)
+        GameCharacter.h
+        MapView.cpp
+        MapView.h)
