@@ -10,7 +10,6 @@ add_executable(AStarGame main.cpp
         SearchState.h
         Observer.h
         Subject.h
-        Display.h
         GameCharacter.cpp
         GameCharacter.h
         MapView.cpp
