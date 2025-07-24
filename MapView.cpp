@@ -54,7 +54,9 @@ void MapView::drawMap() {
     for (int y = 0; y < map.getHeight(); y++)
         for (int x = 0; x < map.getWidth(); x++)
             window.draw(mapTiles[y][x]);
+}
 
+void MapView::drawCharacter() {
     //setup character
     float characterWidth = tileWidth - delta;
     float characterHeight = tileHeight - delta;

@@ -20,6 +20,7 @@ public:
     void detach() override;
 
     void drawMap();
+    void drawCharacter();
     bool drawPath (const std::vector<SearchState>& path);
 
 private:
