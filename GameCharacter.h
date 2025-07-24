@@ -15,6 +15,8 @@
 class GameCharacter: public Subject {
 public:
     GameCharacter(int x, int y): x(x), y(y) {}
+    int getX() const { return x; }
+    int getY() const { return y; }
     bool move (int dx, int dy);
     std::vector<SearchState> reachGoal (SearchState& goal);
 

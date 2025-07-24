@@ -10,6 +10,8 @@ class GlobalMap {
 public:
     ~GlobalMap();
     int getValue (int x, int y) const;
+    int getWidth() const { return width; }
+    int getHeight() const { return height; }
     static GlobalMap& getInstance();
     void initialize (int map_width, int map_height, const int* map_values);
     bool isInitialized() const;
