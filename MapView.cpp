@@ -26,10 +26,10 @@ void MapView::detach() override {
     subject->unsubscribe(this);
 }
 
-void MapView::draw() {
+void MapView::drawMap() {
     const GlobalMap& map = GlobalMap::getInstance();
 
-    //draws map tiles
+    //setup map tiles
     std::vector<std::vector<sf::RectangleShape>> mapTiles (map.getHeight(), std::vector<sf::RectangleShape> (map.getWidth()));
     float tileWidth = ( static_cast<float>(windowWidth) / map.getWidth() );
     float tileHeight = ( static_cast<float>(windowHeight) / map.getHeight() );
@@ -47,7 +47,12 @@ void MapView::draw() {
                 mapTiles[y][x].setFillColor(sf::Color::White);
         }
 
-    //draws character
+    //draw map tiles
+    for (int y = 0; y < map.getHeight(); y++)
+        for (int x = 0; x < map.getWidth(); x++)
+            window.draw(mapTiles[y][x]);
+
+    //setup character
     float characterWidth = tileWidth - delta;
     float characterHeight = tileHeight - delta;
     sf::RectangleShape character ( sf::Vector2f(characterWidth, characterHeight) );
@@ -55,4 +60,14 @@ void MapView::draw() {
     float posY = static_cast<float>(subjectY) * tileHeight + delta;
     character.setPosition( sf::Vector2f(posX, posY) );
     character.setFillColor(sf::Color::Red);
+
+    //draw character
+    window.draw(character);
+}
+
+bool MapView::drawPath(const std::vector<SearchState>& path) {
+    if (path.empty())
+        return false;
+
+    return true;
 }

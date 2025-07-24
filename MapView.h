@@ -18,7 +18,8 @@ public:
     void attach() override;
     void detach() override;
 
-    void draw();
+    void drawMap();
+    void
 
 private:
     int subjectX;

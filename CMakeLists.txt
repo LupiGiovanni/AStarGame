@@ -13,7 +13,9 @@ add_executable(AStarGame main.cpp
         GameCharacter.cpp
         GameCharacter.h
         MapView.cpp
-        MapView.h)
+        MapView.h
+        GameManager.cpp
+        GameManager.h)
 
 find_package(SFML 2.6 COMPONENTS graphics window system REQUIRED)
 
