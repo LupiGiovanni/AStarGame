@@ -7,6 +7,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
+#include "SearchState.h"
 #include "GameCharacter.h"
 
 
@@ -19,7 +20,7 @@ public:
     void detach() override;
 
     void drawMap();
-    void
+    bool drawPath (const std::vector<SearchState>& path);
 
 private:
     int subjectX;
@@ -27,6 +28,9 @@ private:
     GameCharacter* subject;
 
     sf::RenderWindow window;
+    static inline sf::Vector2f tileSize = sf::Vector2f (0.0, 0.0);
+    static inline float tileWidth = 0;
+    static inline float tileHeight = 0;
 };
 
 

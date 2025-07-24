@@ -2,6 +2,8 @@
 // Created by gionimbus on 7/23/25.
 //
 
+#include "SFML/Window.hpp"
+#include "SFML/Graphics.hpp"
 #include "MapView.h"
 
 constexpr int windowWidth= 800;
@@ -9,7 +11,11 @@ constexpr int windowHeight = 800;
 constexpr float delta = 5.0;
 
 MapView::MapView(GameCharacter *gameCharacter): subject(gameCharacter) {
-    GlobalMap& map = GlobalMap::getInstance();
+    const GlobalMap& map = GlobalMap::getInstance();
+    tileWidth = ( static_cast<float>(windowWidth) / map.getWidth() );
+    tileHeight = ( static_cast<float>(windowHeight) / map.getHeight() );
+    tileSize = sf::Vector2f (tileWidth, tileHeight);
+
     window.create( sf::VideoMode(windowWidth, windowHeight), "A* Game", sf::Style::Close | sf::Style::Titlebar );
 }
 
@@ -31,9 +37,6 @@ void MapView::drawMap() {
 
     //setup map tiles
     std::vector<std::vector<sf::RectangleShape>> mapTiles (map.getHeight(), std::vector<sf::RectangleShape> (map.getWidth()));
-    float tileWidth = ( static_cast<float>(windowWidth) / map.getWidth() );
-    float tileHeight = ( static_cast<float>(windowHeight) / map.getHeight() );
-    sf::Vector2f tileSize (tileHeight, tileWidth);
 
     for (int y = 0; y < map.getHeight(); y++)
         for (int x = 0; x < map.getWidth(); x++) {
@@ -56,9 +59,9 @@ void MapView::drawMap() {
     float characterWidth = tileWidth - delta;
     float characterHeight = tileHeight - delta;
     sf::RectangleShape character ( sf::Vector2f(characterWidth, characterHeight) );
-    float posX = static_cast<float>(subjectX) * tileWidth + delta;
-    float posY = static_cast<float>(subjectY) * tileHeight + delta;
-    character.setPosition( sf::Vector2f(posX, posY) );
+    float posX = subjectX * tileWidth + delta;
+    float posY = subjectY * tileHeight + delta;
+    character.setPosition(posX, posY);
     character.setFillColor(sf::Color::Red);
 
     //draw character
@@ -68,6 +71,25 @@ void MapView::drawMap() {
 bool MapView::drawPath(const std::vector<SearchState>& path) {
     if (path.empty())
         return false;
+
+    const GlobalMap& map = GlobalMap::getInstance();
+
+    //setup path tiles
+    std::vector<sf::RectangleShape> tiles (path.size());
+
+    for (int i = 1; i < tiles.size(); i++) {
+        tiles[i].setSize(tileSize);
+        float posX = path[i].getX() * tileWidth;
+        float posY = path[i].getY() * tileHeight;
+        tiles[i].setPosition(posX, posY);
+        tiles[i].setFillColor(sf::Color(140, 140, 255));
+        tiles[i].setOutlineThickness(1.0);
+        tiles[i].setOutlineColor(sf::Color::White);
+    }
+
+    //draw path tiles
+    for (const auto& element : tiles)
+        window.draw(element);
 
     return true;
 }
