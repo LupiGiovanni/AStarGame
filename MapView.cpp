@@ -6,6 +6,7 @@
 
 constexpr int windowWidth= 800;
 constexpr int windowHeight = 800;
+constexpr float delta = 5.0;
 
 MapView::MapView(GameCharacter *gameCharacter): subject(gameCharacter) {
     GlobalMap& map = GlobalMap::getInstance();
@@ -47,7 +48,11 @@ void MapView::draw() {
         }
 
     //draws character
-    float characterWidth = tileWidth - 5;
-    float characterHeight = tileHeight - 5;
-    sf::Vector2f characterSize (characterWidth, characterHeight);
+    float characterWidth = tileWidth - delta;
+    float characterHeight = tileHeight - delta;
+    sf::RectangleShape character ( sf::Vector2f(characterWidth, characterHeight) );
+    float posX = static_cast<float>(subjectX) * tileWidth + delta;
+    float posY = static_cast<float>(subjectY) * tileHeight + delta;
+    character.setPosition( sf::Vector2f(posX, posY) );
+    character.setFillColor(sf::Color::Red);
 }
