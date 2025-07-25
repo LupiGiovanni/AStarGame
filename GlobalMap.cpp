@@ -4,6 +4,7 @@
 
 #include <cstdlib>
 #include <ctime>
+#include <random>
 #include <iostream>
 #include "GlobalMap.h"
 
@@ -32,16 +33,33 @@ GlobalMap& GlobalMap::getInstance() {
     return instance;
 }
 
-void GlobalMap::initialize (int map_width, int map_height, const int* map_values) {
-    width = map_width;
-    height = map_height;
-    if (map_values != nullptr) {
+void GlobalMap::initialize (int mapWidth, int mapHeight, const int* mapValues) {
+    width = mapWidth;
+    height = mapHeight;
+    if (mapValues != nullptr) {
         values = new int[ width * height ];
         for (int i = 0; i < width * height; i++)
-            values[i] = map_values[i];
+            values[i] = mapValues[i];
         initialized = true;
     }
 }
+
+void GlobalMap::initializeRandom(int mapWidth, int mapHeight) {
+    width = mapWidth;
+    height = mapHeight;
+
+    values = new int [width * height];
+
+    std::mt19937 rng(std::time(nullptr));
+    std::uniform_int_distribution<int> dist(0, 100);
+
+    for (int i = 0; i < width * height; i++) {
+        values[i] = (dist(rng) < 50) ? reachable : unreachable; // 70% chance for reachable terrain
+    }
+
+    initialized = true;
+}
+
 
 bool GlobalMap::isInitialized () const {
     return initialized;

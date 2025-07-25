@@ -43,7 +43,6 @@ private:
     float characterWidth;
     float characterHeight;
 
-
 };
 
 
