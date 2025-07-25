@@ -10,37 +10,26 @@ constexpr int windowWidth= 800;
 constexpr int windowHeight = 800;
 constexpr float delta = 5.0;
 
-MapView::MapView(GameCharacter *gameCharacter): subject(gameCharacter) {
+MapView::MapView(GameCharacter* gc) {
+
     const GlobalMap& map = GlobalMap::getInstance();
-    tileWidth = ( static_cast<float>(windowWidth) / map.getWidth() );
-    tileHeight = ( static_cast<float>(windowHeight) / map.getHeight() );
-    tileSize = sf::Vector2f (tileWidth, tileHeight);
+    mapWidth = map.getWidth();
+    mapHeight = map.getHeight();
+
+    subject = gc;
+    subjectX =  gc->getX();
+    subjectY = gc->getY();
 
     window.create( sf::VideoMode(windowWidth, windowHeight), "A* Game", sf::Style::Close | sf::Style::Titlebar );
-}
-
-void MapView::update() override {
-    subjectX = subject->getX();
-    subjectY = subject->getY();
-}
-
-void MapView::attach() override {
-    subject->subscribe(this);
-}
-
-void MapView::detach() override {
-    subject->unsubscribe(this);
-}
-
-void MapView::drawMap() {
-    const GlobalMap& map = GlobalMap::getInstance();
 
     //setup map tiles
-    std::vector<std::vector<sf::RectangleShape>> mapTiles (map.getHeight(), std::vector<sf::RectangleShape> (map.getWidth()));
+    mapTiles = std::vector<std::vector<sf::RectangleShape>> (map.getHeight(), std::vector<sf::RectangleShape> (map.getWidth()));
+    tileWidth = ( static_cast<float>(windowWidth) / map.getWidth() );
+    tileHeight = ( static_cast<float>(windowHeight) / map.getHeight() );
 
     for (int y = 0; y < map.getHeight(); y++)
         for (int x = 0; x < map.getWidth(); x++) {
-            mapTiles[y][x].setSize(tileSize);
+            mapTiles[y][x].setSize( sf::Vector2f( tileWidth, tileHeight ) );
             mapTiles[y][x].setPosition( (x * tileWidth), (y * tileHeight) );
             if (map.getValue(x, y) == 9) {
                 mapTiles[y][x].setFillColor(sf::Color::Black);
@@ -50,21 +39,37 @@ void MapView::drawMap() {
                 mapTiles[y][x].setFillColor(sf::Color::White);
         }
 
-    //draw map tiles
-    for (int y = 0; y < map.getHeight(); y++)
-        for (int x = 0; x < map.getWidth(); x++)
+    //setup character
+    characterWidth = tileWidth - delta;
+    characterHeight = tileHeight - delta;
+    character = sf::RectangleShape ( sf::Vector2f(characterWidth, characterHeight) );
+    character.setFillColor(sf::Color::Red);
+
+}
+
+void MapView::update() {
+    subjectX = subject->getX();
+    subjectY = subject->getY();
+}
+
+void MapView::attach() {
+    subject->subscribe(this);
+}
+
+void MapView::detach() {
+    subject->unsubscribe(this);
+}
+
+void MapView::drawMap() {
+    for (int y = 0; y < mapHeight; y++)
+        for (int x = 0; x < mapWidth; x++)
             window.draw(mapTiles[y][x]);
 }
 
 void MapView::drawCharacter() {
-    //setup character
-    float characterWidth = tileWidth - delta;
-    float characterHeight = tileHeight - delta;
-    sf::RectangleShape character ( sf::Vector2f(characterWidth, characterHeight) );
     float posX = subjectX * tileWidth + delta;
     float posY = subjectY * tileHeight + delta;
     character.setPosition(posX, posY);
-    character.setFillColor(sf::Color::Red);
 
     //draw character
     window.draw(character);
@@ -74,13 +79,11 @@ bool MapView::drawPath(const std::vector<SearchState>& path) {
     if (path.empty())
         return false;
 
-    const GlobalMap& map = GlobalMap::getInstance();
-
     //setup path tiles
     std::vector<sf::RectangleShape> tiles (path.size());
 
     for (int i = 1; i < tiles.size(); i++) {
-        tiles[i].setSize(tileSize);
+        tiles[i].setSize( sf::Vector2f( tileWidth, tileHeight ) );
         float posX = path[i].getX() * tileWidth;
         float posY = path[i].getY() * tileHeight;
         tiles[i].setPosition(posX, posY);
@@ -95,3 +98,9 @@ bool MapView::drawPath(const std::vector<SearchState>& path) {
 
     return true;
 }
+
+void MapView::display() {
+    window.display();
+}
+
+v

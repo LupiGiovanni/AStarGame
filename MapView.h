@@ -13,7 +13,7 @@
 
 class MapView : public Observer {
 public:
-    explicit MapView (GameCharacter* gameCharacter);
+    explicit MapView (GameCharacter* gc);
 
     void update() override;
     void attach() override;
@@ -22,16 +22,28 @@ public:
     void drawMap();
     void drawCharacter();
     bool drawPath (const std::vector<SearchState>& path);
+    void display();
+    void clear();
 
 private:
+    int mapWidth;
+    int mapHeight;
+
+    GameCharacter* subject;
     int subjectX;
     int subjectY;
-    GameCharacter* subject;
 
     sf::RenderWindow window;
-    static inline sf::Vector2f tileSize = sf::Vector2f (0.0, 0.0);
-    static inline float tileWidth = 0;
-    static inline float tileHeight = 0;
+
+    std::vector<std::vector<sf::RectangleShape>> mapTiles;
+    float tileWidth;
+    float tileHeight;
+
+    sf::RectangleShape character;
+    float characterWidth;
+    float characterHeight;
+
+
 };
 
 
