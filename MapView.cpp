@@ -103,4 +103,6 @@ void MapView::display() {
     window.display();
 }
 
-v
+void MapView::clear() {
+    window.clear();
+}
