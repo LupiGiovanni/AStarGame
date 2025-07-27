@@ -24,8 +24,9 @@ bool GameCharacter::move (int dx, int dy) {
     return false;
 }
 
-std::vector<SearchState> GameCharacter::reachGoal(SearchState &goal) {
+std::vector<SearchState> GameCharacter::findPath (int goalX, int goalY) {
     SearchState start (x, y);
+    SearchState goal (goalX, goalY);
     AStarSearch<SearchState> search;
     search.SetStartAndGoalStates(start, goal);
     unsigned int searchProgress;
@@ -46,17 +47,22 @@ std::vector<SearchState> GameCharacter::reachGoal(SearchState &goal) {
             state = search.GetSolutionNext();
         }
         search.FreeSolutionNodes();
-
-        //Updates character position
-        x = goal.getX();
-        y = goal.getY();
-        notify();
     }
     else if (searchProgress == AStarSearch<SearchState>:: SEARCH_STATE_FAILED)
         std::cout << "Search failed" << std::endl;
 
     search.EnsureMemoryFreed();
     return path;
+}
+
+void GameCharacter::moveStepToGoal (std::vector<SearchState>& path) {
+    if (!path.empty()) {
+        SearchState nextState = path.front();
+        x = nextState.getX();
+        y = nextState.getY();
+        notify();
+        path.erase(path.begin());
+    }
 }
 
 void GameCharacter::notify() {

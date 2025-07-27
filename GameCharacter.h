@@ -15,10 +15,12 @@
 class GameCharacter: public Subject {
 public:
     GameCharacter(int x, int y): x(x), y(y) {}
+    GameCharacter(): x(0), y(0) {}
     int getX() const { return x; }
     int getY() const { return y; }
     bool move (int dx, int dy);
-    std::vector<SearchState> reachGoal (SearchState& goal);
+    std::vector<SearchState> findPath (int goalX, int goalY);
+    void moveStepToGoal(std::vector<SearchState> &path);
 
     void notify() override;
     void subscribe(Observer* o) override;

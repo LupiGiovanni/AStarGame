@@ -21,9 +21,11 @@ public:
 
     void drawMap();
     void drawCharacter();
-    bool drawPath (const std::vector<SearchState>& path);
-    void display();
-    void clear();
+    void render();
+
+    sf::RenderWindow& getWindow() { return window; }
+    float getTileWidth() const { return tileWidth; }
+    float getTileHeight() const { return tileHeight; }
 
 private:
     int mapWidth;
@@ -42,7 +44,6 @@ private:
     sf::RectangleShape character;
     float characterWidth;
     float characterHeight;
-
 };
 
 

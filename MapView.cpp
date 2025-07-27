@@ -8,7 +8,6 @@
 
 constexpr int windowWidth= 800;
 constexpr int windowHeight = 800;
-constexpr float delta = 5.0;
 
 MapView::MapView(GameCharacter* gc) {
 
@@ -33,18 +32,17 @@ MapView::MapView(GameCharacter* gc) {
             mapTiles[y][x].setPosition( (x * tileWidth), (y * tileHeight) );
             if (map.getValue(x, y) == 9) {
                 mapTiles[y][x].setFillColor(sf::Color::Black);
-                mapTiles[y][x].setOutlineThickness(1);
-                mapTiles[y][x].setOutlineColor(sf::Color::White);
+                //mapTiles[y][x].setOutlineThickness(1);
+                //mapTiles[y][x].setOutlineColor(sf::Color::White);
             } else
                 mapTiles[y][x].setFillColor(sf::Color::White);
         }
 
     //setup character
-    characterWidth = tileWidth - delta;
-    characterHeight = tileHeight - delta;
+    characterWidth = tileWidth;
+    characterHeight = tileHeight;
     character = sf::RectangleShape ( sf::Vector2f(characterWidth, characterHeight) );
     character.setFillColor(sf::Color::Red);
-
 }
 
 void MapView::update() {
@@ -67,42 +65,18 @@ void MapView::drawMap() {
 }
 
 void MapView::drawCharacter() {
-    float posX = subjectX * tileWidth + delta;
-    float posY = subjectY * tileHeight + delta;
+    float posX = subjectX * tileWidth;
+    float posY = subjectY * tileHeight;
     character.setPosition(posX, posY);
 
     //draw character
     window.draw(character);
 }
 
-bool MapView::drawPath(const std::vector<SearchState>& path) {
-    if (path.empty())
-        return false;
-
-    //setup path tiles
-    std::vector<sf::RectangleShape> tiles (path.size());
-
-    for (int i = 1; i < tiles.size(); i++) {
-        tiles[i].setSize( sf::Vector2f( tileWidth, tileHeight ) );
-        float posX = path[i].getX() * tileWidth;
-        float posY = path[i].getY() * tileHeight;
-        tiles[i].setPosition(posX, posY);
-        tiles[i].setFillColor(sf::Color(140, 140, 255));
-        tiles[i].setOutlineThickness(1.0);
-        tiles[i].setOutlineColor(sf::Color::White);
-    }
-
-    //draw path tiles
-    for (const auto& element : tiles)
-        window.draw(element);
-
-    return true;
-}
-
-void MapView::display() {
+void MapView::render() {
+    window.clear();
+    drawMap();
+    drawCharacter();
     window.display();
 }
 
-void MapView::clear() {
-    window.clear();
-}

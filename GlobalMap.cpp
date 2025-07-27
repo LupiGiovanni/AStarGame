@@ -53,8 +53,9 @@ void GlobalMap::initializeRandom(int mapWidth, int mapHeight) {
     std::mt19937 rng(std::time(nullptr));
     std::uniform_int_distribution<int> dist(0, 100);
 
-    for (int i = 0; i < width * height; i++) {
-        values[i] = (dist(rng) < 50) ? reachable : unreachable; // 70% chance for reachable terrain
+    values[0] = reachable;
+    for (int i = 1; i < width * height; i++) {
+        values[i] = (dist(rng) < 70) ? reachable : unreachable; // 70% chance for reachable terrain
     }
 
     initialized = true;
