@@ -6,8 +6,8 @@
 #include "SFML/Graphics.hpp"
 #include "MapView.h"
 
-constexpr int windowWidth= 800;
-constexpr int windowHeight = 800;
+constexpr int windowWidth= 1000;
+constexpr int windowHeight = 1000;
 
 MapView::MapView(GameCharacter* gc) {
 

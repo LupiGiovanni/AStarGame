@@ -6,19 +6,8 @@
 #include "GameManager.h"
 
 int main() {
-    // GlobalMap& map = GlobalMap::getInstance();
-    // map.initializeRandom(20,20);
-    //
-    // GameCharacter gc;
-    //
-    // MapView mapView (&gc);
-    //
-    // while (mapView.getWindow().isOpen()) {
-    //     mapView.render();
-    // }
-
     GlobalMap& map = GlobalMap::getInstance();
-    map.initializeRandom(50,50);
+    map.initializeRandom(25,25);
     GameManager game;
     while (game.isRunning()) {
         sf::Event event;
@@ -26,8 +15,9 @@ int main() {
         game.update(event);
         game.updateMovement();
         game.render();
-
     }
 
     return 0;
 }
+
+//to do: texture alla mappa, scritte su terminale che indincano bene gli eventi via via che accadono
