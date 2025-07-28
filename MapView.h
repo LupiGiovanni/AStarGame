@@ -47,6 +47,7 @@ private:
     sf::RectangleShape character;
     float characterWidth;
     float characterHeight;
+    float margin;
 };
 
 

@@ -8,6 +8,7 @@
 
 constexpr int windowWidth= 1000;
 constexpr int windowHeight = 1000;
+constexpr float marginPercentage = 0.20;
 
 MapView::MapView(GameCharacter* gc) {
 
@@ -19,7 +20,8 @@ MapView::MapView(GameCharacter* gc) {
     subjectX =  gc->getX();
     subjectY = gc->getY();
 
-    window.create( sf::VideoMode(windowWidth, windowHeight), "A* Game", sf::Style::Close | sf::Style::Titlebar );
+    window.create( sf::VideoMode(windowWidth, windowHeight),
+        "**   Click on a reachable spot to go there with the shortest path!   **", sf::Style::Close | sf::Style::Titlebar );
 
     //setup map tiles
     mapTiles = std::vector<std::vector<sf::RectangleShape>> (map.getHeight(), std::vector<sf::RectangleShape> (map.getWidth()));
@@ -47,10 +49,14 @@ MapView::MapView(GameCharacter* gc) {
         }
 
     //setup character
-    characterWidth = tileWidth;
-    characterHeight = tileHeight;
+    margin = tileWidth * marginPercentage;
+
+    characterWidth = tileWidth - 2 * margin;
+    characterHeight = tileHeight - 2 * margin;
     character = sf::RectangleShape ( sf::Vector2f(characterWidth, characterHeight) );
-    character.setFillColor(sf::Color::Red);
+    character.setFillColor(sf::Color(210,0, 0));
+    character.setOutlineThickness(2);
+    character.setOutlineColor(sf::Color(160, 0, 0));
 }
 
 void MapView::update() {
@@ -73,8 +79,8 @@ void MapView::drawMap() {
 }
 
 void MapView::drawCharacter() {
-    float posX = subjectX * tileWidth;
-    float posY = subjectY * tileHeight;
+    float posX = subjectX * tileWidth + margin;
+    float posY = subjectY * tileHeight + margin;
     character.setPosition(posX, posY);
 
     window.draw(character);
