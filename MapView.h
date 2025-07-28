@@ -40,6 +40,9 @@ private:
     std::vector<std::vector<sf::RectangleShape>> mapTiles;
     float tileWidth;
     float tileHeight;
+    sf::Texture grassTexture;
+    sf::Texture stoneTexture;
+    bool loadTextures();
 
     sf::RectangleShape character;
     float characterWidth;

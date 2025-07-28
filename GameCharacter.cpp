@@ -8,22 +8,6 @@
 
 constexpr int reachable = 1;
 
-bool GameCharacter::move (int dx, int dy) {
-    GlobalMap& map = GlobalMap::getInstance();
-    if (!map.isInitialized()) {
-        std::cout << "Map is not initialized" << std::endl;
-        return false;
-    }
-
-    if (map.getValue(x + dx, y + dy) == reachable) {
-        x += dx;
-        y += dy;
-        notify();
-        return true;
-    }
-    return false;
-}
-
 std::vector<SearchState> GameCharacter::findPath (int goalX, int goalY) {
     SearchState start (x, y);
     SearchState goal (goalX, goalY);

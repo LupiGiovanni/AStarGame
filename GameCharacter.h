@@ -18,7 +18,6 @@ public:
     GameCharacter(): x(0), y(0) {}
     int getX() const { return x; }
     int getY() const { return y; }
-    bool move (int dx, int dy);
     std::vector<SearchState> findPath (int goalX, int goalY);
     void moveStepToGoal(std::vector<SearchState> &path);
 

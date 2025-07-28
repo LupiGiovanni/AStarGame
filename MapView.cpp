@@ -25,17 +25,25 @@ MapView::MapView(GameCharacter* gc) {
     mapTiles = std::vector<std::vector<sf::RectangleShape>> (map.getHeight(), std::vector<sf::RectangleShape> (map.getWidth()));
     tileWidth = ( static_cast<float>(windowWidth) / map.getWidth() );
     tileHeight = ( static_cast<float>(windowHeight) / map.getHeight() );
+    bool loaded = loadTextures();
 
     for (int y = 0; y < map.getHeight(); y++)
         for (int x = 0; x < map.getWidth(); x++) {
             mapTiles[y][x].setSize( sf::Vector2f( tileWidth, tileHeight ) );
             mapTiles[y][x].setPosition( (x * tileWidth), (y * tileHeight) );
             if (map.getValue(x, y) == 9) {
-                mapTiles[y][x].setFillColor(sf::Color::Black);
-                //mapTiles[y][x].setOutlineThickness(1);
-                //mapTiles[y][x].setOutlineColor(sf::Color::White);
-            } else
-                mapTiles[y][x].setFillColor(sf::Color::White);
+                if (loaded)
+                    mapTiles[y][x].setTexture(&stoneTexture);
+                else
+                    mapTiles[y][x].setFillColor(sf::Color::Black);
+            }
+
+            else {
+                if (loaded)
+                    mapTiles[y][x].setTexture(&grassTexture);
+                else
+                    mapTiles[y][x].setFillColor(sf::Color::White);
+            }
         }
 
     //setup character
@@ -69,7 +77,6 @@ void MapView::drawCharacter() {
     float posY = subjectY * tileHeight;
     character.setPosition(posX, posY);
 
-    //draw character
     window.draw(character);
 }
 
@@ -78,5 +85,19 @@ void MapView::render() {
     drawMap();
     drawCharacter();
     window.display();
+}
+
+bool MapView::loadTextures() {
+    bool loaded = true;
+
+    if (!grassTexture.loadFromFile("../assets/grass.png")) {
+        loaded = false;
+    }
+
+    if (!stoneTexture.loadFromFile("../assets/bricks.png")) {
+        loaded = false;
+    }
+
+    return loaded;
 }
 
