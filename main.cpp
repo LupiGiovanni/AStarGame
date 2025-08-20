@@ -1,13 +1,9 @@
-#include <iostream>
-#include <memory>
 #include "GlobalMap.h"
-#include "GameCharacter.h"
-#include "SearchState.h"
 #include "GameManager.h"
 
 int main() {
     GlobalMap& map = GlobalMap::getInstance();
-    map.initializeRandom(25,25);
+    map.initializeRandom(40, 40);
     GameManager game;
     while (game.isRunning()) {
         sf::Event event;
@@ -20,4 +16,4 @@ int main() {
     return 0;
 }
 
-//to do: texture alla mappa, scritte su terminale che indincano bene gli eventi via via che accadono
+//to do: scritte su terminale che indicano bene gli eventi, rimpiazzare i raw pointer

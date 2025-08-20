@@ -11,7 +11,6 @@ constexpr int windowHeight = 1000;
 constexpr float marginPercentage = 0.20;
 
 MapView::MapView(GameCharacter* gc) {
-
     const GlobalMap& map = GlobalMap::getInstance();
     mapWidth = map.getWidth();
     mapHeight = map.getHeight();

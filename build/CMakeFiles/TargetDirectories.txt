@@ -1,0 +1,3 @@
+/home/gionimbus/CLionProjects/AStarGame/build/CMakeFiles/AStarGame.dir
+/home/gionimbus/CLionProjects/AStarGame/build/CMakeFiles/edit_cache.dir
+/home/gionimbus/CLionProjects/AStarGame/build/CMakeFiles/rebuild_cache.dir
