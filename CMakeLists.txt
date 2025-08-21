@@ -32,6 +32,7 @@ add_executable(tests
         test/GameCharacterTest.cpp
         test/GlobalMapTest.cpp
         test/SearchStateTest.cpp
+        test/ObserverPatternTest.cpp
         GlobalMap.cpp
         GlobalMap.h
         SearchState.cpp
