@@ -5,7 +5,7 @@
 #include <gtest/gtest.h>
 #include "GameCharacter.h"
 
-class GameChatacterTest : public ::testing::Test {
+class GameCharacterTest : public ::testing::Test {
 protected:
     void SetUp() override {
         const int testData[] = { 1, 1, 1, 1, 1,
@@ -19,21 +19,21 @@ protected:
     }
 };
 
-TEST_F (GameChatacterTest, ConstructorAndGetters) {
+TEST_F (GameCharacterTest, ConstructorAndGetters) {
     GameCharacter character (2,3);
 
     EXPECT_EQ(character.getX(), 2);
     EXPECT_EQ(character.getY(), 3);
 }
 
-TEST_F (GameChatacterTest, DefaultContructor) {
+TEST_F (GameCharacterTest, DefaultContructor) {
     GameCharacter character;
 
     EXPECT_EQ(character.getX(), 0);
     EXPECT_EQ(character.getY(), 0);
 }
 
-TEST_F (GameChatacterTest, FindPathValidTarget) {
+TEST_F (GameCharacterTest, FindPathValidTarget) {
     GameCharacter character (0,0);
 
     //Find path to reachable position
@@ -48,7 +48,7 @@ TEST_F (GameChatacterTest, FindPathValidTarget) {
     EXPECT_EQ(path.back().getY(), 0);
 }
 
-TEST_F (GameChatacterTest, FindPathToObstacle) {
+TEST_F (GameCharacterTest, FindPathToObstacle) {
     GameCharacter character (0,0);
 
     std::vector<SearchState> path = character.findPath(1,1);
@@ -56,7 +56,7 @@ TEST_F (GameChatacterTest, FindPathToObstacle) {
     EXPECT_TRUE(path.empty()) << "No path should be found to obstacle";
 }
 
-TEST_F (GameChatacterTest, MoveStepToGoal) {
+TEST_F (GameCharacterTest, MoveStepToGoal) {
     GameCharacter character(0, 0);
 
     std::vector<SearchState> path = character.findPath(2, 0);
@@ -72,3 +72,26 @@ TEST_F (GameChatacterTest, MoveStepToGoal) {
     EXPECT_TRUE(character.getX() != initialX || character.getY() != initialY) << "Character position should change";
 }
 
+class MockObserver : public Observer {
+public:
+    bool updateCalled = false;
+
+    void update() override { updateCalled = true; }
+    void attach() override {}
+    void detach() override {}
+};
+
+TEST_F(GameCharacterTest, ObserverPattern) {
+    GameCharacter character(0, 0);
+    MockObserver observer;
+
+    character.subscribe(&observer);
+
+    std::vector<SearchState> path = character.findPath(1, 0);
+    ASSERT_FALSE(path.empty());
+
+    observer.updateCalled = false;
+    character.moveStepToGoal(path);
+
+    EXPECT_TRUE(observer.updateCalled) << "Observer should be notified on move";
+}
