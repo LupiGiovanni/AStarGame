@@ -42,8 +42,8 @@ std::vector<SearchState> GameCharacter::findPath (int goalX, int goalY) {
 void GameCharacter::moveStepToGoal (std::vector<SearchState>& path) {
     if (!path.empty()) {
         SearchState nextState = path.front();
-        x = nextState.getX();
-        y = nextState.getY();
+        this->x = nextState.getX();
+        this->y = nextState.getY();
         notify();
         path.erase(path.begin());
     }

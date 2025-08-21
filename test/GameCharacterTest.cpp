@@ -59,7 +59,7 @@ TEST_F (GameCharacterTest, FindPathToObstacle) {
 TEST_F (GameCharacterTest, MoveStepToGoal) {
     GameCharacter character(0, 0);
 
-    std::vector<SearchState> path = character.findPath(2, 0);
+    std::vector<SearchState> path = character.findPath(3, 3);
     ASSERT_FALSE(path.empty());
 
     int initialPathSize = path.size();
@@ -68,8 +68,11 @@ TEST_F (GameCharacterTest, MoveStepToGoal) {
 
     character.moveStepToGoal(path);
 
-    EXPECT_EQ(path.size(), initialPathSize - 1) << "Path should be shortened by one";
-    EXPECT_TRUE(character.getX() != initialX || character.getY() != initialY) << "Character position should change";
+    int newX = character.getX();
+    int newY = character.getY();
+
+    EXPECT_EQ( path.size(), initialPathSize - 1 ) << "Path should be shortened by one";
+    EXPECT_TRUE( newX != initialX || newY != initialY ) << "Character position should change";
 }
 
 class MockObserver : public Observer {
