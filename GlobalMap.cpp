@@ -59,6 +59,7 @@ void GlobalMap::initializeRandom(int mapWidth, int mapHeight) {
 
     values [0] = reachable;
 
+    //creates a safe starting zone for the character to prevent from being blocked at the beginning
     int safeRadius = 4;
     for (int y = 0; y < safeRadius && y < height; y++) {
         for (int x = 0; x < safeRadius && x < width; x++) {

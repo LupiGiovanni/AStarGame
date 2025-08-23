@@ -11,10 +11,7 @@
 
 class GameManager {
 public:
-    GameManager(): gc(new GameCharacter()), mapView(new MapView(gc)), currentPath({}) {
-        gc->subscribe(mapView);
-        movementDelay = sf::milliseconds(150);
-    };
+    GameManager();
     ~GameManager();
 
     void update (const sf::Event& event);

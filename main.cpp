@@ -16,4 +16,4 @@ int main() {
     return 0;
 }
 
-//to do: scritte su terminale che indicano bene gli eventi, rimpiazzare i raw pointer
+

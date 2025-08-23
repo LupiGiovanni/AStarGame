@@ -5,6 +5,11 @@
 #include <cmath>
 #include "GameManager.h"
 
+GameManager::GameManager(): gc(new GameCharacter()), mapView(new MapView(gc)), currentPath({}) {
+    gc->subscribe(mapView);
+    movementDelay = sf::milliseconds(150);
+}
+
 GameManager::~GameManager() {
     delete gc;
     delete mapView;
@@ -16,10 +21,10 @@ void GameManager::update (const sf::Event& event) {
       mapView->getWindow().close();
 
     else if (event.type == sf::Event::MouseButtonPressed) {
-        int x = transformToMapCoordinateX(event.mouseButton.x);
-        int y = transformToMapCoordinateY(event.mouseButton.y);
+        int goalX = transformToMapCoordinateX(event.mouseButton.x);
+        int goalY = transformToMapCoordinateY(event.mouseButton.y);
 
-        currentPath = gc->findPath(x, y);
+        currentPath = gc->findPath(goalX, goalY);
     }
 }
 

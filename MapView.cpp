@@ -20,7 +20,7 @@ MapView::MapView(GameCharacter* gc) {
     subjectY = gc->getY();
 
     window.create( sf::VideoMode(windowWidth, windowHeight),
-        "**   Click on a reachable spot to go there with the shortest path!   **", sf::Style::Close | sf::Style::Titlebar );
+        "== Click on a reachable spot to go there with the shortest path ==", sf::Style::Close | sf::Style::Titlebar );
 
     //setup map tiles
     mapTiles = std::vector<std::vector<sf::RectangleShape>> (map.getHeight(), std::vector<sf::RectangleShape> (map.getWidth()));
