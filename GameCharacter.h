@@ -14,8 +14,8 @@
 
 class GameCharacter: public Subject {
 public:
-    GameCharacter(int x, int y): x(x), y(y) {}
-    GameCharacter(): x(0), y(0) {}
+    GameCharacter(int x, int y): x(x), y(y), observers{} {}
+    GameCharacter(): x(0), y(0), observers{} {}
     int getX() const { return x; }
     int getY() const { return y; }
     std::vector<SearchState> findPath (int goalX, int goalY);

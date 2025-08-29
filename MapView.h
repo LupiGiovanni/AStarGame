@@ -43,11 +43,13 @@ private:
     sf::Texture grassTexture;
     sf::Texture stoneTexture;
     bool loadTextures();
+    bool setUpMapTiles();
 
     sf::RectangleShape character;
     float characterWidth;
     float characterHeight;
     float margin;
+    void setUpCharacter();
 };
 
 

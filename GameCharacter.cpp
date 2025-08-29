@@ -32,7 +32,7 @@ std::vector<SearchState> GameCharacter::findPath (int goalX, int goalY) {
         }
         search.FreeSolutionNodes();
     }
-    else if (searchProgress == AStarSearch<SearchState>:: SEARCH_STATE_FAILED)
+    else if (searchProgress == AStarSearch<SearchState>::SEARCH_STATE_FAILED)
         std::cout << "Search failed" << std::endl;
 
     search.EnsureMemoryFreed();
