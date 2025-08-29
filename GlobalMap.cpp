@@ -57,6 +57,7 @@ void GlobalMap::initializeRandom(int mapWidth, int mapHeight) {
         values[i] = (dist(rng) < 70) ? reachable : unreachable; // 70% chance for reachable terrain
     }
 
+    //starting point must always be reachable
     values [0] = reachable;
 
     //creates a safe starting zone for the character to prevent from being blocked at the beginning
