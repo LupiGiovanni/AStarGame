@@ -63,8 +63,6 @@ TEST_F (GameCharacterTest, MoveStepToGoal) {
     ASSERT_FALSE(path.empty());
 
     int initialPathSize = path.size();
-    int initialX = character.getX();
-    int initialY = character.getY();
 
     character.moveStepToGoal(path);
 

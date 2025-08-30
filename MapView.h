@@ -19,8 +19,6 @@ public:
     void attach() override;
     void detach() override;
 
-    void drawMap();
-    void drawCharacter();
     void render();
 
     sf::RenderWindow& getWindow() { return window; }
@@ -30,6 +28,7 @@ public:
 private:
     int mapWidth;
     int mapHeight;
+    void drawMap();
 
     GameCharacter* subject;
     int subjectX;
@@ -50,6 +49,7 @@ private:
     float characterHeight;
     float margin;
     void setUpCharacter();
+    void drawCharacter();
 };
 
 
