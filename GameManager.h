@@ -17,8 +17,6 @@ public:
     void update (const sf::Event& event);
     void updateMovement();
     void render();
-    int transformToMapCoordinateX (int mouseX) const;
-    int transformToMapCoordinateY (int mouseY) const;
     bool isRunning() const;
     bool pollEvent(sf::Event& event);
 
@@ -28,6 +26,9 @@ private:
     std::vector<SearchState> currentPath;
     sf::Clock movementClock;
     sf::Time movementDelay;
+
+    int transformToMapCoordinateX (int mouseX) const;
+    int transformToMapCoordinateY (int mouseY) const;
 };
 
 
