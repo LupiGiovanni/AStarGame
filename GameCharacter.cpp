@@ -6,8 +6,6 @@
 #include "GlobalMap.h"
 #include "GameCharacter.h"
 
-constexpr int reachable = 1;
-
 std::vector<SearchState> GameCharacter::findPath (int goalX, int goalY) {
     SearchState start (x, y);
     SearchState goal (goalX, goalY);
