@@ -85,6 +85,51 @@ rebuild_cache:
 rebuild_cache/fast: rebuild_cache
 .PHONY : rebuild_cache/fast
 
+# Special rule for the target list_install_components
+list_install_components:
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Available install components are: \"gmock\" \"gtest\""
+.PHONY : list_install_components
+
+# Special rule for the target list_install_components
+list_install_components/fast: list_install_components
+.PHONY : list_install_components/fast
+
+# Special rule for the target install
+install: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Install the project..."
+	/home/linuxbrew/.linuxbrew/bin/cmake -P cmake_install.cmake
+.PHONY : install
+
+# Special rule for the target install
+install/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Install the project..."
+	/home/linuxbrew/.linuxbrew/bin/cmake -P cmake_install.cmake
+.PHONY : install/fast
+
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing only the local directory..."
+	/home/linuxbrew/.linuxbrew/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
+
+# Special rule for the target install/local
+install/local/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing only the local directory..."
+	/home/linuxbrew/.linuxbrew/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local/fast
+
+# Special rule for the target install/strip
+install/strip: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing the project stripped..."
+	/home/linuxbrew/.linuxbrew/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip
+
+# Special rule for the target install/strip
+install/strip/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing the project stripped..."
+	/home/linuxbrew/.linuxbrew/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip/fast
+
 # The main all target
 all: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/gionimbus/CLionProjects/AStarGame/build/CMakeFiles /home/gionimbus/CLionProjects/AStarGame/build//CMakeFiles/progress.marks
@@ -136,12 +181,78 @@ AStarGame/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AStarGame.dir/build.make CMakeFiles/AStarGame.dir/build
 .PHONY : AStarGame/fast
 
+#=============================================================================
+# Target rules for targets named tests
+
+# Build rule for target.
+tests: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 tests
+.PHONY : tests
+
+# fast build rule for target.
+tests/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/build
+.PHONY : tests/fast
+
+#=============================================================================
+# Target rules for targets named gmock
+
+# Build rule for target.
+gmock: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 gmock
+.PHONY : gmock
+
+# fast build rule for target.
+gmock/fast:
+	$(MAKE) $(MAKESILENT) -f test/lib/googlemock/CMakeFiles/gmock.dir/build.make test/lib/googlemock/CMakeFiles/gmock.dir/build
+.PHONY : gmock/fast
+
+#=============================================================================
+# Target rules for targets named gmock_main
+
+# Build rule for target.
+gmock_main: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 gmock_main
+.PHONY : gmock_main
+
+# fast build rule for target.
+gmock_main/fast:
+	$(MAKE) $(MAKESILENT) -f test/lib/googlemock/CMakeFiles/gmock_main.dir/build.make test/lib/googlemock/CMakeFiles/gmock_main.dir/build
+.PHONY : gmock_main/fast
+
+#=============================================================================
+# Target rules for targets named gtest
+
+# Build rule for target.
+gtest: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 gtest
+.PHONY : gtest
+
+# fast build rule for target.
+gtest/fast:
+	$(MAKE) $(MAKESILENT) -f test/lib/googletest/CMakeFiles/gtest.dir/build.make test/lib/googletest/CMakeFiles/gtest.dir/build
+.PHONY : gtest/fast
+
+#=============================================================================
+# Target rules for targets named gtest_main
+
+# Build rule for target.
+gtest_main: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 gtest_main
+.PHONY : gtest_main
+
+# fast build rule for target.
+gtest_main/fast:
+	$(MAKE) $(MAKESILENT) -f test/lib/googletest/CMakeFiles/gtest_main.dir/build.make test/lib/googletest/CMakeFiles/gtest_main.dir/build
+.PHONY : gtest_main/fast
+
 GameCharacter.o: GameCharacter.cpp.o
 .PHONY : GameCharacter.o
 
 # target to build an object file
 GameCharacter.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AStarGame.dir/build.make CMakeFiles/AStarGame.dir/GameCharacter.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/GameCharacter.cpp.o
 .PHONY : GameCharacter.cpp.o
 
 GameCharacter.i: GameCharacter.cpp.i
@@ -150,6 +261,7 @@ GameCharacter.i: GameCharacter.cpp.i
 # target to preprocess a source file
 GameCharacter.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AStarGame.dir/build.make CMakeFiles/AStarGame.dir/GameCharacter.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/GameCharacter.cpp.i
 .PHONY : GameCharacter.cpp.i
 
 GameCharacter.s: GameCharacter.cpp.s
@@ -158,6 +270,7 @@ GameCharacter.s: GameCharacter.cpp.s
 # target to generate assembly for a file
 GameCharacter.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AStarGame.dir/build.make CMakeFiles/AStarGame.dir/GameCharacter.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/GameCharacter.cpp.s
 .PHONY : GameCharacter.cpp.s
 
 GameManager.o: GameManager.cpp.o
@@ -166,6 +279,7 @@ GameManager.o: GameManager.cpp.o
 # target to build an object file
 GameManager.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AStarGame.dir/build.make CMakeFiles/AStarGame.dir/GameManager.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/GameManager.cpp.o
 .PHONY : GameManager.cpp.o
 
 GameManager.i: GameManager.cpp.i
@@ -174,6 +288,7 @@ GameManager.i: GameManager.cpp.i
 # target to preprocess a source file
 GameManager.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AStarGame.dir/build.make CMakeFiles/AStarGame.dir/GameManager.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/GameManager.cpp.i
 .PHONY : GameManager.cpp.i
 
 GameManager.s: GameManager.cpp.s
@@ -182,6 +297,7 @@ GameManager.s: GameManager.cpp.s
 # target to generate assembly for a file
 GameManager.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AStarGame.dir/build.make CMakeFiles/AStarGame.dir/GameManager.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/GameManager.cpp.s
 .PHONY : GameManager.cpp.s
 
 GlobalMap.o: GlobalMap.cpp.o
@@ -190,6 +306,7 @@ GlobalMap.o: GlobalMap.cpp.o
 # target to build an object file
 GlobalMap.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AStarGame.dir/build.make CMakeFiles/AStarGame.dir/GlobalMap.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/GlobalMap.cpp.o
 .PHONY : GlobalMap.cpp.o
 
 GlobalMap.i: GlobalMap.cpp.i
@@ -198,6 +315,7 @@ GlobalMap.i: GlobalMap.cpp.i
 # target to preprocess a source file
 GlobalMap.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AStarGame.dir/build.make CMakeFiles/AStarGame.dir/GlobalMap.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/GlobalMap.cpp.i
 .PHONY : GlobalMap.cpp.i
 
 GlobalMap.s: GlobalMap.cpp.s
@@ -206,6 +324,7 @@ GlobalMap.s: GlobalMap.cpp.s
 # target to generate assembly for a file
 GlobalMap.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AStarGame.dir/build.make CMakeFiles/AStarGame.dir/GlobalMap.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/GlobalMap.cpp.s
 .PHONY : GlobalMap.cpp.s
 
 MapView.o: MapView.cpp.o
@@ -214,6 +333,7 @@ MapView.o: MapView.cpp.o
 # target to build an object file
 MapView.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AStarGame.dir/build.make CMakeFiles/AStarGame.dir/MapView.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/MapView.cpp.o
 .PHONY : MapView.cpp.o
 
 MapView.i: MapView.cpp.i
@@ -222,6 +342,7 @@ MapView.i: MapView.cpp.i
 # target to preprocess a source file
 MapView.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AStarGame.dir/build.make CMakeFiles/AStarGame.dir/MapView.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/MapView.cpp.i
 .PHONY : MapView.cpp.i
 
 MapView.s: MapView.cpp.s
@@ -230,6 +351,7 @@ MapView.s: MapView.cpp.s
 # target to generate assembly for a file
 MapView.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AStarGame.dir/build.make CMakeFiles/AStarGame.dir/MapView.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/MapView.cpp.s
 .PHONY : MapView.cpp.s
 
 SearchState.o: SearchState.cpp.o
@@ -238,6 +360,7 @@ SearchState.o: SearchState.cpp.o
 # target to build an object file
 SearchState.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AStarGame.dir/build.make CMakeFiles/AStarGame.dir/SearchState.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/SearchState.cpp.o
 .PHONY : SearchState.cpp.o
 
 SearchState.i: SearchState.cpp.i
@@ -246,6 +369,7 @@ SearchState.i: SearchState.cpp.i
 # target to preprocess a source file
 SearchState.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AStarGame.dir/build.make CMakeFiles/AStarGame.dir/SearchState.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/SearchState.cpp.i
 .PHONY : SearchState.cpp.i
 
 SearchState.s: SearchState.cpp.s
@@ -254,6 +378,7 @@ SearchState.s: SearchState.cpp.s
 # target to generate assembly for a file
 SearchState.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AStarGame.dir/build.make CMakeFiles/AStarGame.dir/SearchState.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/SearchState.cpp.s
 .PHONY : SearchState.cpp.s
 
 main.o: main.cpp.o
@@ -280,6 +405,102 @@ main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/AStarGame.dir/build.make CMakeFiles/AStarGame.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+test/GameCharacterTest.o: test/GameCharacterTest.cpp.o
+.PHONY : test/GameCharacterTest.o
+
+# target to build an object file
+test/GameCharacterTest.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/test/GameCharacterTest.cpp.o
+.PHONY : test/GameCharacterTest.cpp.o
+
+test/GameCharacterTest.i: test/GameCharacterTest.cpp.i
+.PHONY : test/GameCharacterTest.i
+
+# target to preprocess a source file
+test/GameCharacterTest.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/test/GameCharacterTest.cpp.i
+.PHONY : test/GameCharacterTest.cpp.i
+
+test/GameCharacterTest.s: test/GameCharacterTest.cpp.s
+.PHONY : test/GameCharacterTest.s
+
+# target to generate assembly for a file
+test/GameCharacterTest.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/test/GameCharacterTest.cpp.s
+.PHONY : test/GameCharacterTest.cpp.s
+
+test/GlobalMapTest.o: test/GlobalMapTest.cpp.o
+.PHONY : test/GlobalMapTest.o
+
+# target to build an object file
+test/GlobalMapTest.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/test/GlobalMapTest.cpp.o
+.PHONY : test/GlobalMapTest.cpp.o
+
+test/GlobalMapTest.i: test/GlobalMapTest.cpp.i
+.PHONY : test/GlobalMapTest.i
+
+# target to preprocess a source file
+test/GlobalMapTest.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/test/GlobalMapTest.cpp.i
+.PHONY : test/GlobalMapTest.cpp.i
+
+test/GlobalMapTest.s: test/GlobalMapTest.cpp.s
+.PHONY : test/GlobalMapTest.s
+
+# target to generate assembly for a file
+test/GlobalMapTest.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/test/GlobalMapTest.cpp.s
+.PHONY : test/GlobalMapTest.cpp.s
+
+test/ObserverPatternTest.o: test/ObserverPatternTest.cpp.o
+.PHONY : test/ObserverPatternTest.o
+
+# target to build an object file
+test/ObserverPatternTest.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/test/ObserverPatternTest.cpp.o
+.PHONY : test/ObserverPatternTest.cpp.o
+
+test/ObserverPatternTest.i: test/ObserverPatternTest.cpp.i
+.PHONY : test/ObserverPatternTest.i
+
+# target to preprocess a source file
+test/ObserverPatternTest.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/test/ObserverPatternTest.cpp.i
+.PHONY : test/ObserverPatternTest.cpp.i
+
+test/ObserverPatternTest.s: test/ObserverPatternTest.cpp.s
+.PHONY : test/ObserverPatternTest.s
+
+# target to generate assembly for a file
+test/ObserverPatternTest.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/test/ObserverPatternTest.cpp.s
+.PHONY : test/ObserverPatternTest.cpp.s
+
+test/SearchStateTest.o: test/SearchStateTest.cpp.o
+.PHONY : test/SearchStateTest.o
+
+# target to build an object file
+test/SearchStateTest.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/test/SearchStateTest.cpp.o
+.PHONY : test/SearchStateTest.cpp.o
+
+test/SearchStateTest.i: test/SearchStateTest.cpp.i
+.PHONY : test/SearchStateTest.i
+
+# target to preprocess a source file
+test/SearchStateTest.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/test/SearchStateTest.cpp.i
+.PHONY : test/SearchStateTest.cpp.i
+
+test/SearchStateTest.s: test/SearchStateTest.cpp.s
+.PHONY : test/SearchStateTest.s
+
+# target to generate assembly for a file
+test/SearchStateTest.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/test/SearchStateTest.cpp.s
+.PHONY : test/SearchStateTest.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -288,8 +509,17 @@ help:
 	@echo "... depend"
 	@echo "... codegen"
 	@echo "... edit_cache"
+	@echo "... install"
+	@echo "... install/local"
+	@echo "... install/strip"
+	@echo "... list_install_components"
 	@echo "... rebuild_cache"
 	@echo "... AStarGame"
+	@echo "... gmock"
+	@echo "... gmock_main"
+	@echo "... gtest"
+	@echo "... gtest_main"
+	@echo "... tests"
 	@echo "... GameCharacter.o"
 	@echo "... GameCharacter.i"
 	@echo "... GameCharacter.s"
@@ -308,6 +538,18 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... test/GameCharacterTest.o"
+	@echo "... test/GameCharacterTest.i"
+	@echo "... test/GameCharacterTest.s"
+	@echo "... test/GlobalMapTest.o"
+	@echo "... test/GlobalMapTest.i"
+	@echo "... test/GlobalMapTest.s"
+	@echo "... test/ObserverPatternTest.o"
+	@echo "... test/ObserverPatternTest.i"
+	@echo "... test/ObserverPatternTest.s"
+	@echo "... test/SearchStateTest.o"
+	@echo "... test/SearchStateTest.i"
+	@echo "... test/SearchStateTest.s"
 .PHONY : help
 
 

@@ -1,7 +1,10 @@
 {
 	"InstallScripts" : 
 	[
-		"/home/gionimbus/CLionProjects/AStarGame/build/cmake_install.cmake"
+		"/home/gionimbus/CLionProjects/AStarGame/build/cmake_install.cmake",
+		"/home/gionimbus/CLionProjects/AStarGame/build/test/lib/cmake_install.cmake",
+		"/home/gionimbus/CLionProjects/AStarGame/build/test/lib/googlemock/cmake_install.cmake",
+		"/home/gionimbus/CLionProjects/AStarGame/build/test/lib/googletest/cmake_install.cmake"
 	],
 	"Parallel" : false
 }
